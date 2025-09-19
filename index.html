@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELIEPEDI E-Learning Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      font-family: "ITC Bauhaus Bold", "Bauhaus 93", "Poppins", sans-serif;
+      display: flex;
+      align-items: center;
+    }
+    .logo span.e {
+      color: #51c924;
+    }
+    .logo span.learn {
+      color: #6f2fa0;
+    }
+    
+    /* Mobile menu button */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav .dropdown {
+      position: relative;
+    }
+    nav .dropdown button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 0;
+      color: #333;
+    }
+    nav .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border: 1px solid #ddd;
+      min-width: 150px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    nav .dropdown-content a {
+      display: block;
+      padding: 12px 15px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s;
+    }
+    nav .dropdown-content a:hover {
+      background: #f1f1f1;
+    }
+    nav .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      padding: 10px 15px;
+      padding-right: 40px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      width: 250px;
+      font-size: 14px;
+    }
+    .search-box i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .dark-mode-btn, .login-btn {
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .dark-mode-btn { 
+      background: #eee; 
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dark-mode-btn:hover { background: #e2e2e2; }
+    .login-btn { 
+      background: #0073e6; 
+      color: white; 
+    }
+    .login-btn:hover {
+      background: #0062c4;
+    }
+
+    /* Sub-header with scroll */
+    .sub-header-wrapper {
+      display: flex;
+      align-items: center;
+      background: #0073e6;
+      color: white;
+      padding: 12px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-btn {
+      background: #005bb5;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 12px 16px;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .scroll-btn:hover {
+      background: #004a94;
+    }
+    .scroll-btn:active {
+      transform: scale(0.95);
+    }
+    .scroll-btn.left {
+      border-radius: 0 8px 8px 0;
+    }
+    .scroll-btn.right {
+      border-radius: 8px 0 0 8px;
+    }
+    .sub-header {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      flex: 1;
+      padding: 0 15px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .sub-header::-webkit-scrollbar { 
+      display: none; 
+    }
+    .sub-header a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      white-space: nowrap;
+      padding: 8px 12px;
+      position: relative;
+      transition: all 0.2s;
+      border-radius: 20px;
+    }
+    .sub-header a:hover { 
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .sub-header a.active {
+      background: rgba(255, 255, 255, 0.25);
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #51c92433, #6f2fa033);
+    }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .hero .hero-search {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+    .hero .hero-search input {
+      flex: 1;
+      padding: 16px 24px;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding-right: 70px;
+    }
+    .hero .hero-search button {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0073e6;
+      border: none;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .hero .hero-search button:hover {
+      background: #0062c4;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    /* Courses Section */
+    .courses {
+      padding: 60px 20px;
+    }
+    .courses h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 32px;
+      color: #0073e6;
+      font-weight: 700;
+    }
+    .course-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .course-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    }
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    footer {
+      background: #1e1e1e;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 60px;
+    }
+    footer p {
+      font-size: 15px;
+      opacity: 0.8;
+    }
+
+    /* Dark Mode */
+    body.dark { 
+      background: #121212; 
+      color: #e0e0e0; 
+    }
+    body.dark header { 
+      background: #1e1e1e; 
+      border-color: #333; 
+    }
+    body.dark .menu-toggle {
+      color: #e0e0e0;
+    }
+    body.dark nav .dropdown button {
+      color: #e0e0e0;
+    }
+    body.dark nav .dropdown-content { 
+      background: #2d2d2d; 
+      border-color: #444;
+    }
+    body.dark nav .dropdown-content a {
+      color: #e0e0e0;
+    }
+    body.dark nav .dropdown-content a:hover {
+      background: #3d3d3d;
+    }
+    body.dark .search-box input {
+      background: #2d2d2d;
+      border-color: #444;
+      color: #e0e0e0;
+    }
+    body.dark .sub-header-wrapper { 
+      background: #1a4b7c; 
+    }
+    body.dark .scroll-btn { 
+      background: #153d65; 
+    }
+    body.dark .scroll-btn:hover {
+      background: #1c5088;
+    }
+    body.dark .course-card { 
+      background: #1e1e1e; 
+      border-color: #333; 
+      color: #e0e0e0; 
+    }
+    body.dark .course-card:hover {
+      box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+      background: #252525;
+    }
+    body.dark .dark-mode-btn { 
+      background: #333; 
+      color: #e0e0e0;
+    }
+    body.dark .dark-mode-btn:hover {
+      background: #444;
+    }
+    body.dark .hero {
+      background: linear-gradient(135deg, #1e3a1a33, #2e1a3e33);
+    }
+    body.dark .hero-search input {
+      background: #2d2d2d;
+      border-color: #555;
+      color: #e0e0e0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .search-box input {
+        width: 200px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        gap: 15px;
+      }
+      .search-box input {
+        width: 180px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 15px;
+      }
+      
+      .menu-toggle {
+        display: block;
+        order: 1;
+      }
+      
+      .logo {
+        order: 2;
+        margin: 0 auto;
+      }
+      
+      .buttons {
+        order: 3;
+      }
+      
+      nav {
+        display: none;
+        width: 100%;
+        order: 4;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+      
+      nav.active {
+        display: flex;
+      }
+      
+      nav .dropdown {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+      }
+      
+      nav .dropdown button {
+        width: 100%;
+        text-align: left;
+        padding: 12px 0;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      nav .dropdown button::after {
+        content: '▾';
+      }
+      
+      nav .dropdown-content {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        display: none;
+        margin-left: 15px;
+      }
+      
+      nav .dropdown.active .dropdown-content {
+        display: block;
+      }
+      
+      .search-box {
+        width: 100%;
+        margin: 15px 0;
+      }
+      
+      .search-box input {
+        width: 100%;
+      }
+      
+      .hero {
+        padding: 60px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 28px;
+      }
+      
+      .hero .hero-search {
+        width: 90%;
+      }
+      
+      .course-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 22px;
+      }
+      
+      .hero {
+        padding: 40px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 24px;
+      }
+      
+      .hero .hero-search {
+        width: 100%;
+      }
+      
+      .hero .hero-search input {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+      
+      .hero .hero-search button {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+      }
+      
+      .courses {
+        padding: 40px 15px;
+      }
+      
+      .courses h2 {
+        font-size: 26px;
+      }
+      
+      .course-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .course-card {
+        padding: 20px;
+      }
+      
+      .buttons {
+        gap: 8px;
+      }
+      
+      .dark-mode-btn, .login-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+      
+      .dark-mode-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .scroll-btn {
+        padding: 10px 12px;
+        font-size: 18px;
+      }
+      
+      .sub-header a {
+        padding: 6px 10px;
+        font-size: 14px;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .course-card {
+        border: 2px solid;
+      }
+      
+      .search-box input {
+        border: 2px solid;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+      
+      .course-card:hover {
+        transform: none;
+      }
+      
+      .sub-header {
+        scroll-behavior: auto;
+      }
+      
+      .hero .hero-search button:hover {
+        transform: translateY(-50%);
+      }
+    }
+
+
+
+
+     /* Maintenance Overlay - Fixed to always be on top */
+    .maintenance-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgb(255 255 255 / 62%);
+      z-index: 9999; /* Increased z-index to ensure it's above everything */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .maintenance-content {
+      max-width: 600px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .maintenance-logo {
+      font-size: 36px;
+      font-weight: bold;
+      font-family: "ITC Bauhaus Bold", "Bauhaus 93", "Poppins", sans-serif;
+      margin-bottom: 20px;
+    }
+    .maintenance-logo span.e {
+      color: #51c924;
+    }
+    .maintenance-logo span.learn {
+      color: #6f2fa0;
+    }
+    
+    .maintenance-title {
+      font-size: 28px;
+      color: #0073e6;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .maintenance-message {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    
+    .gear-container {
+      margin: 30px 0;
+      position: relative;
+      height: 120px;
+    }
+    
+    .gear {
+      font-size: 80px;
+      color: #0073e6;
+      animation: rotate 4s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .thank-you {
+      font-size: 16px;
+      color: #6f2fa0;
+      font-style: italic;
+      margin-top: 20px;
+    }
+    
+    /* Make page content transparent when in maintenance mode */
+    body.maintenance-mode > *:not(.maintenance-overlay) {
+      opacity: 0.3;
+      filter: blur(2px);
+      pointer-events: none; /* Prevent interaction with blurred elements */
+    }
+
+  </style>
+</head>
+<body>
+
+
+     <!-- Maintenance Overlay -->
+  <div class="maintenance-overlay">
+    <div class="maintenance-content">
+      <div class="maintenance-logo">
+        <span class="e">elite</span><span class="learn">pedia</span>
+      </div>
+      
+      <h1 class="maintenance-title">Website Under Maintenance</h1>
+      
+      <p class="maintenance-message">
+        We're currently performing some maintenance on our website to improve your experience. 
+        We'll be back online shortly. Thank you for your patience.
+      </p>
+      
+      <div class="gear-container">
+        <i class="fas fa-cog gear"></i>
+      </div>
+      
+      <p class="thank-you">Thank you for visiting our website!</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="logo">
+      <span class="e">elite</span><span class="learn">pedia</span>
+    </div>
+    <nav id="mainNav">
+      <div class="dropdown">
+        <button>Courses</button>
+        <div class="dropdown-content">
+          <a href="#">C</a>
+          <a href="#">C++</a>
+          <a href="#">Java</a>
+          <a href="#">Python</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Tutorials</button>
+        <div class="dropdown-content">
+          <a href="#">Web Development</a>
+          <a href="#">System Design</a>
+          <a href="#">Linux</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Practice</button>
+        <div class="dropdown-content">
+          <a href="#">DSA</a>
+          <a href="#">Aptitude</a>
+          <a href="#">SQL</a>
+        </div>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search topic...">
+        <i class="fas fa-search"></i>
+      </div>
+    </nav>
+    <div class="buttons">
+      <button class="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
+      <button class="login-btn">Login / Signup</button>
+    </div>
+  </header>
+
+  <!-- Sub-header -->
+  <div class="sub-header-wrapper">
+    <button class="scroll-btn left" onclick="scrollSubHeader(-200)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="sub-header" id="subHeader">
+      <a href="#" class="active">DSA</a>
+      <a href="#">Practice Problems</a>
+      <a href="#">C</a>
+      <a href="#">C++</a>
+      <a href="#">Java</a>
+      <a href="#">Python</a>
+      <a href="#">JavaScript</a>
+      <a href="#">Data Science</a>
+      <a href="#">Machine Learning</a>
+      <a href="#">Courses</a>
+      <a href="#">Linux</a>
+      <a href="#">DevOps</a>
+      <a href="#">SQL</a>
+      <a href="#">Web Development</a>
+      <a href="#">System Design</a>
+      <a href="#">Aptitude</a>
+    </div>
+    <button class="scroll-btn right" onclick="scrollSubHeader(200)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Hello, What Do You Want To Learn?</h1>
+    <div class="hero-search">
+      <input type="text" placeholder="Search courses...">
+      <button><i class="fas fa-search"></i></button>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="courses">
+    <h2>Popular Courses</h2>
+    <div class="course-container">
+      <div class="course-card">Machine Learning</div>
+      <div class="course-card">AWS</div>
+      <div class="course-card">C++</div>
+      <div class="course-card">Self-paced</div>
+      <div class="course-card">Java Programming</div>
+      <div class="course-card">MEARN Stack</div>
+      <div class="course-card">Angular</div>
+      <div class="course-card">DevOps</div>
+      <div class="course-card">AI/ML</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 elitepedia Platform. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      // Save user preference
+      if (document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    
+    function scrollSubHeader(amount) {
+      document.getElementById("subHeader").scrollBy({
+        left: amount,
+        behavior: "smooth"
+      });
+    }
+    
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+    
+    // Mobile menu functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    
+    menuToggle.addEventListener('click', function() {
+      mainNav.classList.toggle('active');
+    });
+    
+    // Mobile dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          this.classList.toggle('active');
+        }
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768 && mainNav.classList.contains('active')) {
+        if (!e.target.closest('nav') && !e.target.closest('.menu-toggle')) {
+          mainNav.classList.remove('active');
+        }
+      }
+    });
+    
+    // Add active class to sub-header links on click
+    const subHeaderLinks = document.querySelectorAll('.sub-header a');
+    subHeaderLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        subHeaderLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

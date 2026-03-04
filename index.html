@@ -724,7 +724,7 @@
     <header>
         <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
         <a href="#" class="logo"><img src="eplogo.JPG" alt="Elitepedia Logo"></a>
-        <nav id="mainNav"><a href="review.html">reviews</a></nav>
+        <nav id="mainNav"><a href="syllabus.html">syllabus</a><a href="review.html">reviews</a></nav>
     </header>
 
     <!-- HERO SECTION with PERFECTLY WORKING ANIMATED GLOBE (from component) -->
@@ -745,7 +745,7 @@
                     study material</p>
             </div>
 
-            <!-- right: ANIMATED GLOBE -->
+            <!-- right: EXACT ANIMATED GLOBE FROM COMPONENT (all animations intact) -->
             <div class="hero-globe-col">
                 <div class="globe-wrapper">
                     <svg aria-hidden="true" viewBox="-1 -1 802 802" width="100%" height="100%"
@@ -779,7 +779,7 @@
                                 vector-effect="non-scaling-stroke" />
                         </g>
 
-                        <!-- animated group rdr-21 (blue) -->
+                        <!-- animated groups from user snippet -->
                         <g id="rdr-21" opacity="1">
                             <path
                                 d="M148.584,266.667 h125.708M 274.292 266.667 A -133.333 400 0 0 0 266.667 400M266.667,400 h133.333"
@@ -804,7 +804,6 @@
                             </defs>
                         </g>
 
-                        <!-- ldl21 (green) -->
                         <g id="ldl21" opacity="1">
                             <path d="M 700 400 L 400 400" fill="none" stroke="url(#ldl21-gradient)"
                                 stroke-linecap="round" stroke-width="2" vector-effect="non-scaling-stroke">
@@ -827,89 +826,154 @@
                             </defs>
                         </g>
 
-                        <defs>
-                            <radialGradient cx="400" cy="400" id="blue-grad" r="66.667" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#1a73e9" />
-                                <stop offset="1" stop-color="#1a73e9" stop-opacity="0" />
-                                <animate attributeName="cx" dur="3.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
-                                    repeatCount="indefinite" values="400;400;266.667;274.292;148.584;148.584;0" />
-                                <animate attributeName="cy" dur="3.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
-                                    repeatCount="indefinite" values="400;400;400;266.667;266.667;266.667;0" />
-                            </radialGradient>
-                            <radialGradient cx="200" cy="400" id="green-grad" r="100" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#25d366" />
-                                <stop offset="1" stop-color="#25d366" stop-opacity="0" />
-                                <animate attributeName="cx" dur="4.9s" keyTimes="0;0.5;1" repeatCount="indefinite"
-                                    values="200;700;700" />
-                            </radialGradient>
+                        <g id="ldd12" opacity="1">
+                            <path
+                                d="M499.381,133.333 h-99.381M 400 266.667 A 0 400 0 0 0 400 133.333M 400 400 A 0 400 0 0 0 400 266.667"
+                                fill="none" stroke="url(#ldd12-gradient)" stroke-linecap="round" stroke-width="2"
+                                vector-effect="non-scaling-stroke">
+                                <animate attributeName="opacity" dur="6.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                    repeatCount="indefinite" values="0;0;0;1;1;1;1" />
+                            </path>
+                            <defs>
+                                <radialGradient cx="0" cy="0" gradientUnits="userSpaceOnUse" id="ldd12-gradient"
+                                    r="66.667">
+                                    <stop offset="0" stop-color="#ff8c42" />
+                                    <stop offset="0.4" stop-color="#ff8c42" />
+                                    <stop offset="1" stop-color="#ff8c42" stop-opacity="0" />
+                                    <animate attributeName="cx" dur="6.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="0;400;400;400;400;499.381;499.381" />
+                                    <animate attributeName="cy" dur="6.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="0;400;400;266.667;133.333;133.333;133.333" />
+                                    <animate attributeName="r" dur="6.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="66.667;66.667;66.667;66.667;66.667;0;0" />
+                                </radialGradient>
+                            </defs>
+                        </g>
 
-                            <clipPath id="clipCenter">
-                                <circle cx="400.5" cy="400.5" r="65" />
-                            </clipPath>
-                            <clipPath id="clipLinux">
-                                <circle cx="148.584" cy="266.667" r="60" />
-                            </clipPath>
-                            <clipPath id="clipAWS">
-                                <circle cx="664.416" cy="394.667" r="60" />
-                            </clipPath>
-                            <clipPath id="clipDocker">
-                                <circle cx="508.381" cy="133.333" r="60" />
-                            </clipPath>
-                            <clipPath id="clipK8s">
-                                <circle cx="499.381" cy="666.667" r="60" />
-                            </clipPath>
-                            <clipPath id="clipCICD">
-                                <circle cx="148.584" cy="533.333" r="60" />
-                            </clipPath>
-                        </defs>
+                        <g id="ulu1-2" opacity="1">
+                            <path
+                                d="M 499.381 666.667 A 133.333 400 0 0 0 525.708 533.333M525.708,533.333 h-125.708M 400 400 A 0 400 0 0 0 400 533.333"
+                                fill="none" stroke="url(#ulu1-2-gradient)" stroke-linecap="round" stroke-width="2"
+                                vector-effect="non-scaling-stroke">
+                                <animate attributeName="opacity" dur="8.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                    repeatCount="indefinite" values="0;0;0;1;1;1;1" />
+                            </path>
+                            <defs>
+                                <radialGradient cx="0" cy="0" gradientUnits="userSpaceOnUse" id="ulu1-2-gradient"
+                                    r="66.667">
+                                    <stop offset="0" stop-color="#aa80ff" />
+                                    <stop offset="0.4" stop-color="#aa80ff" />
+                                    <stop offset="1" stop-color="#aa80ff" stop-opacity="0" />
+                                    <animate attributeName="cx" dur="8.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="0;400;400;400;525.708;499.381;499.381" />
+                                    <animate attributeName="cy" dur="8.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="0;400;400;533.333;533.333;666.667;666.667" />
+                                    <animate attributeName="r" dur="8.9s" keyTimes="0;0.098;0.196;0.294;0.392;0.49;1"
+                                        repeatCount="indefinite" values="66.667;66.667;66.667;66.667;66.667;0;0" />
+                                </radialGradient>
+                            </defs>
+                        </g>
 
-                        <!-- nodes with text (customized for devops) -->
-                        <g data-testid="node">
-                            <circle cx="148.584" cy="266.667" fill="#deedf7" r="60" stroke="#8cb9f4" stroke-width="2" />
-                            <image href="11.png" x="88.584" y="206.667" width="120" height="120"
-                                clip-path="url(#clipLinux)" preserveAspectRatio="xMidYMid slice" />
-                            <circle cx="153" cy="326" fill="#1a73e9" r="7" />
-                            <text x="118" y="371" fill="#535353" font-size="16" font-weight="500">Linux</text>
-                        </g>
-                        <g data-testid="node">
-                            <circle cx="664.416" cy="394.667" fill="#eefcef" r="60" stroke="#92e9b2" stroke-width="2" />
-                            <image href="12.png" x="604.416" y="334.667" width="120" height="120"
-                                clip-path="url(#clipAWS)" preserveAspectRatio="xMidYMid slice" />
-                            <circle cx="670" cy="455" fill="#25d366" r="7" />
-                            <text x="615" y="500" fill="#535353" font-size="16">AWS</text>
-                        </g>
-                        <g data-testid="node">
-                            <circle cx="508.381" cy="133.333" fill="#ffebde" r="60" stroke="#ffc19a" stroke-width="2" />
-                            <image href="9.png" x="448.381" y="73.333" width="120" height="120"
-                                clip-path="url(#clipDocker)" preserveAspectRatio="xMidYMid slice" />
-                            <circle cx="510" cy="193" fill="#ff6300" r="7" />
-                            <text x="470" y="237" fill="#535353" font-size="16">Docker</text>
-                        </g>
-                        <g data-testid="node">
-                            <circle cx="499.381" cy="666.667" fill="#ebeafb" r="60" stroke="#9c99b0" stroke-width="2" />
-                            <image href="8.png" x="439.381" y="606.667" width="120" height="120"
-                                clip-path="url(#clipK8s)" preserveAspectRatio="xMidYMid slice" />
-                            <circle cx="499" cy="725" fill="#3c3664" r="7" />
-                            <text x="460" y="764" fill="#535353" font-size="16">K8s</text>
-                        </g>
-                        <g data-testid="node">
-                            <circle cx="148.584" cy="533.333" fill="#fffbee" r="60" stroke="#ffe89f" stroke-width="2" />
-                            <image href="10.png" x="88.584" y="473.333" width="120" height="120"
-                                clip-path="url(#clipCICD)" preserveAspectRatio="xMidYMid slice" />
-                            <circle cx="148" cy="595" fill="#ffd23f" r="7" />
-                            <text x="117" y="638" fill="#535353" font-size="16">CI/CD</text>
-                        </g>
-                        <!-- central circle -->
-                        <circle cx="400.5" cy="400.5" fill="#ffffff" r="65" stroke="#3c3664" stroke-width="2" />
-                        <image href="7.png" x="335.5" y="335.5" width="130" height="130" clip-path="url(#clipCenter)"
-                            preserveAspectRatio="xMidYMid slice" />
-                        <text x="400" y="495" fill="#1e2a4a" font-size="28" font-weight="bold"
-                            text-anchor="middle">DevOps</text>
+                        <g id="rdruu-2-1" opacity="1">
+                            <path
+                                d="M148.584,533.333 h125.708M 274.292 533.333 A -133.333 400 0 0 0 300.619 666.667M300.619,666.667 h99.381M 400 533.333 A 0 400 0 0 0 400 666.667M 400 400 A 0 400 0 0 0 400 533.333"
+                                fill="none" stroke="url(#rdruu-2-1-gradient)" stroke-linecap="round" stroke-width="2"
+                                vector-effect="non-scaling-stroke">
+                                <animate attributeName="opacity" dur="3.9s"
+                                    keyTimes="0;0.083;0.167;0.25;0.333;0.417;0.5;0.583;1" repeatCount="indefinite"
+                                    values="0;1;1;1;1;1;1;0;0" />
+                            </path>
+                            <defs>
+                                <radialGradient cx="100" cy="100" gradientUnits="userSpaceOnUse" id="rdruu-2-1-gradient"
+                                    r="66.667">
+                                    <stop offset="0" stop-color="#ffd23f" />
+                                    <stop offset="0.4" stop-color="#ffd23f" />
+                                    <stop offset="1" stop-color="#ffd23f" stop-opacity="0" />
+                                    <animate attributeName="cx" dur="3.9s"
+                                        keyTimes="0;0.083;0.167;0.25;0.333;0.417;0.5;0.583;1" repeatCount="indefinite"
+                                        values="0;400;400;400;300.619;274.292;148.584;148.584;0" />
+                                    <animate attributeName="cy" dur="3.9s"
+                                        keyTimes="0;0.083;0.167;0.25;0.333;0.417;0.5;0.583;1" repeatCount="indefinite"
+                                        values="533.333;533.333;533.333;666.667;666.667;533.333;400;400;0" />
+                                    <animate attributeName="r" dur="3.9s"
+                                        keyTimes="0;0.083;0.167;0.25;0.333;0.417;0.5;0.583;1" repeatCount="indefinite"
+                                        values="0;66.667;66.667;66.667;66.667;66.667;66.667;0;0" />
+                                </radialGradient>
+                            </defs>
+                            <defs>
+                                <clipPath id="clipCenter">
+                                    <circle cx="400.5" cy="400.5" r="65" />
+                                </clipPath>
+                                <clipPath id="clipLinux">
+                                    <circle cx="148.584" cy="266.667" r="60" />
+                                </clipPath>
+                                <clipPath id="clipAWS">
+                                    <circle cx="664.416" cy="394.667" r="60" />
+                                </clipPath>
+                                <clipPath id="clipDocker">
+                                    <circle cx="508.381" cy="133.333" r="60" />
+                                </clipPath>
+                                <clipPath id="clipK8s">
+                                    <circle cx="499.381" cy="666.667" r="60" />
+                                </clipPath>
+                                <clipPath id="clipCICD">
+                                    <circle cx="148.584" cy="533.333" r="60" />
+                                </clipPath>
+                            </defs>
+
+                            <!-- nodes with text -->
+                            <g data-testid="node">
+                                <circle cx="148.584" cy="266.667" fill="#deedf7" r="60" stroke="#8cb9f4"
+                                    stroke-width="2" />
+                                <image href="11.png" x="88.584" y="206.667" width="120" height="120"
+                                    clip-path="url(#clipLinux)" preserveAspectRatio="xMidYMid slice" />
+                                <circle cx="153" cy="326" fill="#1a73e9" r="7" />
+                                <text x="118" y="371" fill="#535353" font-size="16" font-weight="500">Linux</text>
+                            </g>
+                            <g data-testid="node">
+                                <circle cx="664.416" cy="394.667" fill="#eefcef" r="60" stroke="#92e9b2"
+                                    stroke-width="2" />
+                                <image href="12.png" x="604.416" y="334.667" width="120" height="120"
+                                    clip-path="url(#clipAWS)" preserveAspectRatio="xMidYMid slice" />
+                                <circle cx="670" cy="455" fill="#25d366" r="7" />
+                                <text x="615" y="500" fill="#535353" font-size="16">AWS</text>
+                            </g>
+                            <g data-testid="node">
+                                <circle cx="508.381" cy="133.333" fill="#ffebde" r="60" stroke="#ffc19a"
+                                    stroke-width="2" />
+                                <image href="9.png" x="448.381" y="73.333" width="120" height="120"
+                                    clip-path="url(#clipDocker)" preserveAspectRatio="xMidYMid slice" />
+                                <circle cx="510" cy="193" fill="#ff6300" r="7" />
+                                <text x="470" y="237" fill="#535353" font-size="16">Docker</text>
+                            </g>
+                            <g data-testid="node">
+                                <circle cx="499.381" cy="666.667" fill="#ebeafb" r="60" stroke="#9c99b0"
+                                    stroke-width="2" />
+                                <image href="8.png" x="439.381" y="606.667" width="120" height="120"
+                                    clip-path="url(#clipK8s)" preserveAspectRatio="xMidYMid slice" />
+                                <circle cx="499" cy="725" fill="#3c3664" r="7" />
+                                <text x="460" y="764" fill="#535353" font-size="16">K8s</text>
+                            </g>
+                            <g data-testid="node">
+                                <circle cx="148.584" cy="533.333" fill="#fffbee" r="60" stroke="#ffe89f"
+                                    stroke-width="2" />
+                                <image href="10.png" x="88.584" y="473.333" width="120" height="120"
+                                    clip-path="url(#clipCICD)" preserveAspectRatio="xMidYMid slice" />
+                                <circle cx="148" cy="595" fill="#ffd23f" r="7" />
+                                <text x="117" y="638" fill="#535353" font-size="16">CI/CD</text>
+                            </g>
+                            <!-- central circle with "DevOps" -->
+                            <circle cx="400.5" cy="400.5" fill="#ffffff" r="65" stroke="#3c3664" stroke-width="2" />
+                            <image href="7.png" x="335.5" y="335.5" width="130" height="130"
+                                clip-path="url(#clipCenter)" preserveAspectRatio="xMidYMid slice" />
+                            <text x="400" y="495" fill="#1e2a4a" font-size="28" font-weight="bold"
+                                text-anchor="middle">DevOps</text>
                     </svg>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- webinar detail card -->
     <section class="webinar-detail-card animate-on-scroll">
@@ -1131,7 +1195,7 @@
                 </div>
                 <div id="thankyouDiv" style="display: none;" class="thankyou-message">
                     🎉 <strong>You're registered!</strong><br>
-                    <span>📲 details sent to WhatsApp & email</span>
+                    <span>📲 details sent to WhatsApp </span>
                     <div><button onclick="goBackToForm()"><i class="fas fa-undo-alt"></i> register another</button>
                     </div>
                 </div>

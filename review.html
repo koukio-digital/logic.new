@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Reviews elitepedia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favioconofep.png">
+    <style>
+        /* ----- SHARED RESET & STYLES ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            color: #1e2a4a;
+            line-height: 1.5;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 12px 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            height: clamp(40px, 8vw, 55px);
+            width: auto;
+            display: block;
+        }
+
+        nav {
+            display: flex;
+            gap: clamp(15px, 3vw, 30px);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ----- REVIEWS PAGE CONTENT ----- */
+        .reviews-hero {
+            background: linear-gradient(125deg, #eef5ff 0%, #ffffff 70%);
+            padding: 60px 5vw;
+            text-align: center;
+        }
+
+        .reviews-hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .review-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 5vw;
+        }
+
+        .detailed-review-card {
+            background: white;
+            border-radius: 35px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .detailed-review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 115, 230, 0.1);
+        }
+
+        .detailed-review-card .quote-icon {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 30px;
+            color: rgba(0, 115, 230, 0.1);
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            background: #eef5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0073e6;
+        }
+
+        .student-name {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .student-college {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        /* ----- REVIEW FORM SECTION ----- */
+        .review-form-section {
+            display: none;
+            /* Hidden by default */
+            background: white;
+            border-radius: 45px;
+            padding: 40px;
+            max-width: 800px;
+            margin: -40px auto 60px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .give-review-btn {
+            background: #6f2fa0;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(111, 47, 160, 0.2);
+        }
+
+        .give-review-btn:hover {
+            background: #5a2582;
+            transform: scale(1.05);
+        }
+
+        .review-form-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0d253f;
+        }
+
+        .review-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .review-form .full-wd {
+            grid-column: 1 / -1;
+        }
+
+        .review-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+            background: #fdfdfd;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus {
+            border-color: #0073e6;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #ffc107;
+        }
+
+        .submit-review-btn {
+            background: #0073e6;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-review-btn:hover {
+            background: #005bb5;
+            transform: translateY(-2px);
+        }
+
+        .submit-review-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #formMessage {
+            margin-top: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #formMessage.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        #formMessage.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 600px) {
+            .review-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background: #1e1e1e;
+            color: white;
+            padding: 30px 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .footer-socials a:hover {
+            color: #0073e6;
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            footer {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <a href="index.html" class="logo"><img src="eplogo.JPG" alt="Elitepedia Logo"></a>
+        <nav id="mainNav"><a href="index.html">Home</a></nav>
+    </header>
+
+    <main>
+        <section class="reviews-hero">
+            <h1>What Our Students Say</h1>
+            <p>Join 10,000+ learners who have accelerated their DevOps journey with Elitepedia.</p>
+            <button class="give-review-btn" onclick="toggleReviewForm()"><i class="fas fa-edit"></i> Give a
+                Review</button>
+        </section>
+
+        <section class="review-form-section">
+            <h2>Share Your Experience</h2>
+            <form class="review-form" id="reviewForm">
+                <div>
+                    <label>Full Name *</label>
+                    <input type="text" name="name" required placeholder="Ex: Rahul Kumar">
+                </div>
+                <div>
+                    <label>Email ID *</label>
+                    <input type="email" name="email" required placeholder="rahul@example.com">
+                </div>
+                <div>
+                    <label>College Name *</label>
+                    <input type="text" name="college" required placeholder="Your Institute Name">
+                </div>
+                <div>
+                    <label>Date of Webinar *</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="full-wd">
+                    <label>Your Rating *</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required><label for="star5"
+                            class="fas fa-star"></label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4"
+                            class="fas fa-star"></label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3"
+                            class="fas fa-star"></label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2"
+                            class="fas fa-star"></label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1"
+                            class="fas fa-star"></label>
+                    </div>
+                </div>
+                <div class="full-wd">
+                    <label>Write Your Review *</label>
+                    <textarea name="review" rows="4" required
+                        placeholder="Tell us about your learning experience..."></textarea>
+                </div>
+                <div class="full-wd">
+                    <button type="submit" class="submit-review-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Review
+                    </button>
+                </div>
+            </form>
+            <div id="formMessage"></div>
+        </section>
+
+        <section class="review-page-grid">
+            <!-- Review 1 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">AS</div>
+                    <div>
+                        <div class="student-name">Aditya Sharma</div>
+                        <div class="student-college">Delhi Technological University</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The Linux fundamentals covered were exceptional. I was always intimidated by the
+                    terminal, but Arun made it feel like second nature."</p>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">NS</div>
+                    <div>
+                        <div class="student-name">Neha Singh</div>
+                        <div class="student-college">Savitribai Phule Pune University</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"DevOps is vast, but this bootcamp focused on exactly what's needed in the
+                    industry. Highly recommend for final year students!"</p>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">RV</div>
+                    <div>
+                        <div class="student-name">Rohit Verma</div>
+                        <div class="student-college">IIIT Hyderabad</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="far fa-star"></i>
+                </div>
+                <p class="review-text">"Outstanding AWS hands-on sessions. Building an entire VPC from scratch was the
+                    highlight for me."</p>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">PI</div>
+                    <div>
+                        <div class="student-name">Priya Iyengar</div>
+                        <div class="student-college">BITS Pilani</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The Docker and Kubernetes modules helped me land a Cloud Engineering role during
+                    placements. The certificate added real value."</p>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">AK</div>
+                    <div>
+                        <div class="student-name">Ankit Kumar</div>
+                        <div class="student-college">IIT Bombay</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Clear, concise, and professional. The instructor's ex-Google experience really
+                    shines through in the way complex topics are simplified."</p>
+            </div>
+
+            <!-- Review 6 -->
+            <div class="detailed-review-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <div class="student-info">
+                    <div class="student-avatar">SM</div>
+                    <div>
+                        <div class="student-name">Sneha Mehta</div>
+                        <div class="student-college">SRM University</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The CI/CD pipeline project was a game changer. I now understand how software is
+                    actually deployed at scale."</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 elitepedia – devops bootcamp & reviews</p>
+        <div class="footer-socials">
+            <a href="https://instagram.com/elitepedia" target="_blank" title="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/elitepedia" target="_blank" title="LinkedIn"><i
+                    class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+
+        function toggleReviewForm() {
+            const formSection = document.querySelector('.review-form-section');
+            const isHidden = window.getComputedStyle(formSection).display === 'none';
+
+            if (isHidden) {
+                formSection.style.display = 'block';
+                formSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                formSection.style.display = 'none';
+            }
+        }
+
+        // GOOGLE SHEETS INTEGRATION
+        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // User needs to replace this
+        const form = document.getElementById('reviewForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMsg = document.getElementById('formMessage');
+        const formSection = document.querySelector('.review-form-section');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            formMsg.style.display = 'none';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    formMsg.className = 'success';
+                    formMsg.innerText = '🎉 Thank you! Your review has been submitted successfully. Closing form...';
+                    formMsg.style.display = 'block';
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+
+                    // Auto-close form after 3 seconds
+                    setTimeout(() => {
+                        formSection.style.display = 'none';
+                        formMsg.style.display = 'none';
+                    }, 3000);
+                })
+                .catch(error => {
+                    formMsg.className = 'error';
+                    formMsg.innerText = '❌ Something went wrong. Please try again.';
+                    formMsg.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+                    console.error('Error!', error.message);
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>elitepedia - DevOps Bootcamp</title>
+    <title>elitepedia</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favioconofep.png">
@@ -643,32 +643,6 @@
             margin-top: 25px;
         }
 
-        /* Loading spinner */
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #0073e6;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Error message */
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 30px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
         /* ----- ANIMATIONS ----- */
         @keyframes fadeInUp {
             from {
@@ -1156,8 +1130,6 @@
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">&times;</button>
             <h2>📋 register for DevOps</h2>
-            <div id="loadingSpinner" class="spinner" style="display: none;"></div>
-            <div id="errorMessage" class="error-message" style="display: none;"></div>
             <form id="webinarForm" onsubmit="event.preventDefault(); processRegistration()">
                 <div class="form-grid" id="step1Fields">
                     <div class="full-width"><label>full name *</label><input type="text" id="fullName" required
@@ -1222,10 +1194,10 @@
                     </div>
                 </div>
                 <div id="thankyouDiv" style="display: none;" class="thankyou-message">
-                    <strong>🎉 Registration Successful!</strong><br>
-                    <span>Thank you for registering. You will receive webinar details on your WhatsApp.</span>
-                    <br>
-                    <button onclick="closeModal()">Close</button>
+                     <strong>You're registered!</strong><br>
+                    <span> details sent to WhatsApp </span>
+                    
+                    </div>
                 </div>
             </form>
         </div>
@@ -1242,134 +1214,45 @@
     </footer>
 
     <script>
-        // Configuration - REPLACE WITH YOUR ACTUAL WEB APP URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKQ3_lSIiwqvOC46RvJ0WqKbeek00T-bxjKInragCJ5zZULHmGzA7Fr2TT5orNLldI/exec';
-
         const modal = document.getElementById('modalOverlay');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const errorMessage = document.getElementById('errorMessage');
-
-        function openModal() { 
-            modal.style.display = 'flex'; 
-            resetModal(); 
-        }
-        
-        function closeModal() { 
-            modal.style.display = 'none'; 
-            resetModal(); 
-        }
+        function openModal() { modal.style.display = 'flex'; resetModal(); }
+        function closeModal() { modal.style.display = 'none'; resetModal(); }
 
         let studentData = {};
-        
         function showSocialStep() {
             let name = document.getElementById('fullName').value.trim();
             let email = document.getElementById('email').value.trim();
             let mobile = document.getElementById('mobile').value.trim();
-            
-            if (!name || !email || !mobile) { 
-                alert('Please fill all required fields'); 
-                return; 
-            }
-            
-            // Email validation
-            if (!isValidEmail(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-            
-            // Mobile validation (basic Indian mobile number)
-            if (!isValidMobile(mobile)) {
-                alert('Please enter a valid 10-digit mobile number');
-                return;
-            }
-            
+            if (!name || !email || !mobile) { alert('fill required fields'); return; }
             studentData = {
                 name, email, mobile,
                 branch: document.querySelector('input[name="branch"]:checked')?.value,
                 passout: document.querySelector('input[name="passout"]:checked')?.value,
                 gender: document.querySelector('input[name="gender"]:checked')?.value,
-                college: document.getElementById('college').value,
-                timestamp: new Date().toISOString()
+                college: document.getElementById('college').value
             };
-            
             document.getElementById('step1Fields').style.display = 'none';
             document.getElementById('step1Actions').style.display = 'none';
             document.getElementById('socialStep').style.display = 'block';
             document.getElementById('confirmFollowCheck').checked = false;
             document.getElementById('finalSubmitBtn').disabled = true;
         }
-        
         function goBackToStep1() {
             document.getElementById('step1Fields').style.display = 'grid';
             document.getElementById('step1Actions').style.display = 'flex';
             document.getElementById('socialStep').style.display = 'none';
-            hideError();
         }
-        
-        function followLinkedin() { 
-            window.open('https://linkedin.com/company/elitepedia', '_blank'); 
-        }
-        
-        function toggleSubmitButton() { 
-            document.getElementById('finalSubmitBtn').disabled = !document.getElementById('confirmFollowCheck').checked; 
-        }
-        
+        function followLinkedin() { alert('LinkedIn page (demo). Please follow and tick.'); window.open('https://linkedin.com/company/elitepedia', '_blank'); }
+        function toggleSubmitButton() { document.getElementById('finalSubmitBtn').disabled = !document.getElementById('confirmFollowCheck').checked; }
         function processRegistration() {
-            if (!document.getElementById('confirmFollowCheck').checked) { 
-                alert('Please confirm that you have joined WhatsApp and followed LinkedIn.'); 
-                return; 
-            }
-            
-            // Show loading spinner
-            loadingSpinner.style.display = 'block';
-            hideError();
-            
-            // Prepare data for Google Sheets
-            const registrationData = {
-                ...studentData,
-                registrationId: 'REG-' + Date.now(),
-                status: 'confirmed'
-            };
-            
-            // Send data to Google Sheets
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Important for Google Apps Script
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(registrationData)
-            })
-            .then(response => {
-                // Even with no-cors, we can't read the response
-                // Assume success and show thank you message
-                showSuccess();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showError('Registration failed. Please try again or contact support.');
-            })
-            .finally(() => {
-                loadingSpinner.style.display = 'none';
-            });
-        }
-        
-        function showSuccess() {
+            if (!document.getElementById('confirmFollowCheck').checked) { alert('Please confirm follow.'); return; }
+            console.log('registered:', studentData);
             document.getElementById('step1Fields').style.display = 'none';
             document.getElementById('step1Actions').style.display = 'none';
             document.getElementById('socialStep').style.display = 'none';
             document.getElementById('thankyouDiv').style.display = 'block';
         }
-        
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-        }
-        
-        function hideError() {
-            errorMessage.style.display = 'none';
-        }
-        
+        function goBackToForm() { resetModal(); }
         function resetModal() {
             document.getElementById('step1Fields').style.display = 'grid';
             document.getElementById('step1Actions').style.display = 'flex';
@@ -1377,18 +1260,6 @@
             document.getElementById('thankyouDiv').style.display = 'none';
             document.getElementById('webinarForm').reset();
             document.getElementById('finalSubmitBtn').disabled = true;
-            hideError();
-            loadingSpinner.style.display = 'none';
-        }
-        
-        function isValidEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-        
-        function isValidMobile(mobile) {
-            const re = /^[6-9]\d{9}$/;
-            return re.test(mobile);
         }
 
         function scrollCarousel(id, direction) {
@@ -1399,74 +1270,7 @@
                 behavior: 'smooth'
             });
         }
-        
-        document.getElementById('menuToggle').addEventListener('click', () => { 
-            document.getElementById('mainNav').classList.toggle('active'); 
-        });
-        
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                closeModal();
-            }
-        });
-
-
-
-        // Disable Right Click
-document.addEventListener("contextmenu", function(e){
-    e.preventDefault();
-});
-
-// Disable Copy
-document.addEventListener("copy", function(e){
-    e.preventDefault();
-});
-
-// Disable Paste
-document.addEventListener("paste", function(e){
-    e.preventDefault();
-});
-
-// Disable Cut
-document.addEventListener("cut", function(e){
-    e.preventDefault();
-});
-
-// Disable Text Selection
-document.addEventListener("selectstart", function(e){
-    e.preventDefault();
-});
-
-// Disable Keyboard Shortcuts
-document.addEventListener("keydown", function(e) {
-
-    // Disable Ctrl+C
-    if (e.ctrlKey && e.key === "c") {
-        e.preventDefault();
-    }
-
-    // Disable Ctrl+V
-    if (e.ctrlKey && e.key === "v") {
-        e.preventDefault();
-    }
-
-    // Disable Ctrl+U (View Source)
-    if (e.ctrlKey && e.key === "u") {
-        e.preventDefault();
-    }
-
-    // Disable Ctrl+S (Save Page)
-    if (e.ctrlKey && e.key === "s") {
-        e.preventDefault();
-    }
-
-    // Disable F12 (Developer Tools)
-    if (e.key === "F12") {
-        e.preventDefault();
-    }
-
-});
+        document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('mainNav').classList.toggle('active'); });
     </script>
 </body>
 
